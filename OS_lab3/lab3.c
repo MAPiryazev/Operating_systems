@@ -10,7 +10,7 @@
 
 const char* FIRST_MMAP_NAME = "f1";
 const char* SECOND_MMAP_NAME = "f2";
-const char* SEMAPHORE_NAME = "sema";
+const char* SEMAPHORE_NAME = "semaphore";
 
 int get_semaphore_value(sem_t* semaphore)
 {
@@ -85,10 +85,10 @@ int main()
     
     int first_mmap_file, second_mmap_file;
     
-    error_checking(first_mmap_file = shm_open(FIRST_MMAP_NAME, O_RDWR | O_CREAT, 0777), "File openning error");
+    error_checking(first_mmap_file = shm_open(FIRST_MMAP_NAME, O_RDWR | O_CREAT, 0777), "File openning error"); // открывает файл в разделяемой памяти
     error_checking(second_mmap_file = shm_open(SECOND_MMAP_NAME, O_RDWR | O_CREAT, 0777), "File openning error");
     
-    sem_unlink(SEMAPHORE_NAME);
+    sem_unlink(SEMAPHORE_NAME); // здесь удаляем семафор чтобы открыть наш новый с нулевыми параметрами
     sem_t* semaphore = sem_open(SEMAPHORE_NAME, O_CREAT, 0777, 2);
     
     pid_t first_process_id = fork();
@@ -101,15 +101,15 @@ int main()
         
         if (second_process_id == 0)
         {
-            //printf("Second child process\n");
+            printf("Second child process\n");
             
-            error_checking(dup2(second_child_file, fileno(stdout)), "dup2 error");
+            error_checking(dup2(second_child_file, fileno(stdout)), "dup2 error"); // перенаправление стандартного в second child file
             error_checking(execl("child.out", SEMAPHORE_NAME, SECOND_MMAP_NAME, NULL), "Execl error");
 		}
 		
 		else
 		{
-		    //printf("First child process\n");
+		    printf("First child process\n");
 		    
             error_checking(dup2(first_child_file, fileno(stdout)), "dup2 error");
             error_checking(execl("child.out", SEMAPHORE_NAME, FIRST_MMAP_NAME, NULL), "Execl error");
@@ -119,11 +119,11 @@ int main()
     
     else
     {
-        //printf("Parent process\n");
+        printf("Parent process\n");
         
         if (get_semaphore_value(semaphore) == 2)
         {
-            char* first_mmap = (char*) mmap(NULL, getpagesize(), PROT_READ | PROT_WRITE, MAP_SHARED, first_mmap_file, 0);
+            char* first_mmap = (char*) mmap(NULL, getpagesize(), PROT_READ | PROT_WRITE, MAP_SHARED, first_mmap_file, 0); // отображаем файлы в память
             char* second_mmap = (char*) mmap(NULL, getpagesize(), PROT_READ | PROT_WRITE, MAP_SHARED, second_mmap_file, 0);
             
             if (first_mmap == MAP_FAILED)
@@ -155,9 +155,9 @@ int main()
                 {
                     first_length += string_length + 1;
                     
-                    error_checking(ftruncate(first_mmap_file, first_length), "Ftruncate error");
+                    error_checking(ftruncate(first_mmap_file, first_length), "Ftruncate error"); //фиксируем количество памяти, которую выделяем для представления первого файла
                     
-                    for (int char_index = 0; char_index < string_length; ++char_index)
+                    for (int char_index = 0; char_index < string_length; ++char_index) //в цикле перегоняем строку в представление файла
                     {
                         first_mmap[first_position] = input_string[char_index];
                         ++first_position;
@@ -168,7 +168,7 @@ int main()
                     
                 }
                 
-                else
+                else // здесь то же самое для второго представления фала
                 {
                     second_length += string_length + 1;
                     
@@ -188,12 +188,12 @@ int main()
             
             set_semaphore_value(semaphore, 1);
 
-            struct stat first_buffer, second_buffer;
-            fstat(first_mmap_file, &first_buffer);
+            struct stat first_buffer, second_buffer;//создание структур, которые будут хранить разную информацию о файлах из которых на пригодится размер
+            fstat(first_mmap_file, &first_buffer);// собираем информацию о файлах
             fstat(second_mmap_file, &second_buffer);
 
             int first_mmap_size, second_mmap_size;
-            first_mmap_size = first_buffer.st_size;
+            first_mmap_size = first_buffer.st_size;//обращаемся к полю st_size ранее созданной структуры и запоминаем размер первого представления файла
             second_mmap_size = second_buffer.st_size;
 
             munmap(first_mmap, first_mmap_size);
