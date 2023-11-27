@@ -1,0 +1,1 @@
+const int constant_size = 100;
