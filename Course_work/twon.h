@@ -15,7 +15,7 @@ struct buffer{
 };
 
 class twon{
-    const unsigned int SIZE = 1<<12; //2^12
+    const unsigned int SIZE = 1010000; //2^12
     char* memory_ptr;
     std::map<int,std::vector<buffer>> memory;
 public:

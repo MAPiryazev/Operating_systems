@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <math.h>
 #include <cstdint>
+#include <stdexcept>
+
 
 
 struct block{
@@ -15,7 +17,7 @@ struct block{
 
 struct buddy_allocator
 {  
-    const unsigned int SIZE = 1<<12; //2^12
+    const unsigned int SIZE = 1010000; //2^12
     char* memory_ptr;
     std::vector<block*> memory;
     unsigned int get_order(unsigned int);

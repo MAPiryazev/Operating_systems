@@ -34,6 +34,7 @@ char *buddy_allocator::malloc(unsigned int size){
             }
         }
     }
+    throw std::runtime_error("not enough memory");
     return nullptr;
 }
 
