@@ -1,0 +1,7 @@
+/home/michael/Operating_systems/Course_work/build/CMakeFiles/buddy.dir
+/home/michael/Operating_systems/Course_work/build/CMakeFiles/edit_cache.dir
+/home/michael/Operating_systems/Course_work/build/CMakeFiles/rebuild_cache.dir
+/home/michael/Operating_systems/Course_work/build/CMakeFiles/list_install_components.dir
+/home/michael/Operating_systems/Course_work/build/CMakeFiles/install.dir
+/home/michael/Operating_systems/Course_work/build/CMakeFiles/install/local.dir
+/home/michael/Operating_systems/Course_work/build/CMakeFiles/install/strip.dir

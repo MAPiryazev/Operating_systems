@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/michael/Operating_systems/Course_work/build",
+  "command": "/usr/bin/g++ -g -std=gnu++17 -o CMakeFiles/buddy.dir/twon.cpp.o -c /home/michael/Operating_systems/Course_work/twon.cpp",
+  "file": "/home/michael/Operating_systems/Course_work/twon.cpp"
+},
+{
+  "directory": "/home/michael/Operating_systems/Course_work/build",
+  "command": "/usr/bin/g++ -g -std=gnu++17 -o CMakeFiles/buddy.dir/main.cpp.o -c /home/michael/Operating_systems/Course_work/main.cpp",
+  "file": "/home/michael/Operating_systems/Course_work/main.cpp"
+},
+{
+  "directory": "/home/michael/Operating_systems/Course_work/build",
+  "command": "/usr/bin/g++ -g -std=gnu++17 -o CMakeFiles/buddy.dir/buddy.cpp.o -c /home/michael/Operating_systems/Course_work/buddy.cpp",
+  "file": "/home/michael/Operating_systems/Course_work/buddy.cpp"
+}
+]
