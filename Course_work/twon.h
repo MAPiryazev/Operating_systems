@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <math.h>
 #include <iostream>
-
+#include "consts.h"
 
 
 struct buffer{
@@ -15,7 +15,6 @@ struct buffer{
 };
 
 class twon{
-    const unsigned int SIZE = 1010000; //2^12
     char* memory_ptr;
     std::map<int,std::vector<buffer>> memory;
 public:

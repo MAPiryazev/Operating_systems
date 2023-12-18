@@ -1,4 +1,5 @@
 #include "twon.h"
+#include "consts.h"
 
 twon::twon(){
     memory_ptr = new char[SIZE];

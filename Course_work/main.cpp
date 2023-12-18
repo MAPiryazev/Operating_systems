@@ -18,14 +18,14 @@ int main()
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    for (int i=0; i < 3000; i++){   
+    for (int i=0; i < 3000; i++){
         buddy_alloc.push_back(my_buddy_allocator.malloc(32));
         auto current_end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = current_end - start;
         coordinates_buddy.push_back(std::make_pair(i,duration.count()));
 
     }
-    for (int i=0; i < 3000; i++){   
+    for (int i=0; i < 3000; i++){
         my_buddy_allocator.free(buddy_alloc[i]);
     }
 

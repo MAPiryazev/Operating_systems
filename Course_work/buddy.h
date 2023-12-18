@@ -5,7 +5,7 @@
 #include <math.h>
 #include <cstdint>
 #include <stdexcept>
-
+#include "consts.h"
 
 
 struct block{
@@ -17,10 +17,10 @@ struct block{
 
 struct buddy_allocator
 {  
-    const unsigned int SIZE = 1010000; //2^12
     char* memory_ptr;
     std::vector<block*> memory;
     unsigned int get_order(unsigned int);
+    unsigned int total_allocated = 0;
     
 public:
     buddy_allocator();
